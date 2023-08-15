@@ -89,12 +89,13 @@ init([]) ->
 get_session(Req) ->
 	Cookie_name = ?CONFIG(cookie_name),
         Cookies = cowboy_req:parse_cookies(Req),
-        ?LOG_ERROR("Cookie_name: ~p~nCookies: ~p~n", [Cookie_name, Cookies]),
-        { _, SID} = lists:keyfind(Cookie_name, 1, Cookies),
-	case SID of
-		undefined ->
-			create_session(Req);
-		_ ->
+        % ?LOG_ERROR("Cookie_name: ~p~nCookies: ~p~n", [Cookie_name, Cookies]),
+        case lists:keyfind(Cookie_name, 1, Cookies) of
+                false ->
+                        create_session(Req);
+                {_, undefined} ->
+                        create_session(Req);
+                _ ->
 			case gproc:lookup_local_name({cowboy_session, SID}) of
 				undefined ->
 					create_session(Req);
@@ -102,7 +103,7 @@ get_session(Req) ->
 					cowboy_session_server:touch(Pid),
 					{Pid, Req}
 			end
-	end.
+        end.
 
 clear_cookie(Req) ->
 	Cookie_name = ?CONFIG(cookie_name),
