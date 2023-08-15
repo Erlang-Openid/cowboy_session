@@ -16,7 +16,6 @@
 
 -behaviour(supervisor).
 -export([init/1]).
--include_lib("kernel/include/logger.hrl").
 
 -define(CHILD(I, Type), {I, {I, start_link, []}, permanent, 5000, Type, [I]}).
 
@@ -89,7 +88,6 @@ init([]) ->
 get_session(Req) ->
 	Cookie_name = ?CONFIG(cookie_name),
         Cookies = cowboy_req:parse_cookies(Req),
-        % ?LOG_ERROR("Cookie_name: ~p~nCookies: ~p~n", [Cookie_name, Cookies]),
         case lists:keyfind(Cookie_name, 1, Cookies) of
                 false ->
                         create_session(Req);
