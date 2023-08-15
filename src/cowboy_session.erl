@@ -95,7 +95,7 @@ get_session(Req) ->
                         create_session(Req);
                 {_, undefined} ->
                         create_session(Req);
-                _ ->
+                {_, SID} ->
 			case gproc:lookup_local_name({cowboy_session, SID}) of
 				undefined ->
 					create_session(Req);
