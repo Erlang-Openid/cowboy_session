@@ -9,5 +9,7 @@
 		uuid
 	]},
 	{mod, {cowboy_session, []}},
-	{env, []}
+	{env, []},
+	{licenses, ["MIT"]},
+	{pkg_name, oidcc_cowboy_session}
 ]}.

@@ -1,5 +1,8 @@
 # Cowboy session
 
+:warning::warning:**This is a temporary fork that supports Cowboy 2. It will be
+retired as soon as that library is updated.**:warning:warning:
+
 ## Usage:
 First you need to get dependencies (gproc and erlang-uuid) and compile the code:
 ```bash
